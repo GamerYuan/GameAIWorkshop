@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
+[RequireComponent(typeof(CapsuleCollider))]
 public class EnemyBehaviour : MonoBehaviour
 {
     [Header("Properties")]
@@ -10,6 +10,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     [Header("Object References")]
     [SerializeField] private Transform m_PlayerTransform;
+    [SerializeField] private Transform m_NavmeshDestination;
 
     private Rigidbody m_Rigidbody;
 
@@ -47,9 +48,6 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (m_CanMove)
         {
-            transform.eulerAngles = new Vector3(0, Random.Range(0, 360), 0);
-            m_CanMove = false;
-            m_CurrentState = EnemyStates.Moving;
             StartCoroutine(MoveStateCoroutine());
         }
     }
@@ -57,7 +55,6 @@ public class EnemyBehaviour : MonoBehaviour
     private void ExecuteMoving()
     {
         m_Rigidbody.linearVelocity = transform.forward * m_MovementSpeed;
-        Debug.Log(m_Rigidbody.linearVelocity);
     }
 
     private void ExecuteAggro()
@@ -74,17 +71,21 @@ public class EnemyBehaviour : MonoBehaviour
 
     private IEnumerator MoveStateCoroutine()
     {
+        transform.eulerAngles = new Vector3(0, Random.Range(0, 360), 0);
+        m_CanMove = false;
+        m_CurrentState = EnemyStates.Moving;
+
         yield return new WaitForSeconds(2f);
         if (m_CurrentState == EnemyStates.Moving) m_CurrentState = EnemyStates.Idle;
 
         yield return new WaitForSeconds(2f);
         m_CanMove = true;
     }
-}
 
-public enum EnemyStates
-{
-    Idle,
-    Moving,
-    Aggro
+    public enum EnemyStates
+    {
+        Idle,
+        Moving,
+        Aggro
+    }
 }
