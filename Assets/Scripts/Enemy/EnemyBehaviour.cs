@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(CapsuleCollider))]
 public class EnemyBehaviour : MonoBehaviour
@@ -13,6 +14,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private Transform m_NavmeshDestination;
 
     private Rigidbody m_Rigidbody;
+    private NavMeshAgent m_NavMeshAgent;
 
     [Header("Debug")]
     [SerializeField] private EnemyStates m_CurrentState = EnemyStates.Idle;
@@ -21,27 +23,29 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
+        m_NavMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     void Update()
     {
-        if (Vector3.Distance(transform.position, m_PlayerTransform.position) < m_AggroRange)
-        {
-            m_CurrentState = EnemyStates.Aggro;
-        }
+        m_NavMeshAgent.SetDestination(m_PlayerTransform.position);
+        //if (Vector3.Distance(transform.position, m_PlayerTransform.position) < m_AggroRange)
+        //{
+        //    m_CurrentState = EnemyStates.Aggro;
+        //}
 
-        switch (m_CurrentState)
-        {
-            case EnemyStates.Idle:
-                ExecuteIdle();
-                break;
-            case EnemyStates.Moving:
-                ExecuteMoving();
-                break;
-            case EnemyStates.Aggro:
-                ExecuteAggro();
-                break;
-        }
+        //switch (m_CurrentState)
+        //{
+        //    case EnemyStates.Idle:
+        //        ExecuteIdle();
+        //        break;
+        //    case EnemyStates.Moving:
+        //        ExecuteMoving();
+        //        break;
+        //    case EnemyStates.Aggro:
+        //        ExecuteAggro();
+        //        break;
+        //}
     }
 
     private void ExecuteIdle()
