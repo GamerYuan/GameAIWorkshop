@@ -28,24 +28,23 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
-        m_NavMeshAgent.SetDestination(m_PlayerTransform.position);
-        //if (Vector3.Distance(transform.position, m_PlayerTransform.position) < m_AggroRange)
-        //{
-        //    m_CurrentState = EnemyStates.Aggro;
-        //}
+        if (Vector3.Distance(transform.position, m_PlayerTransform.position) < m_AggroRange)
+        {
+            m_CurrentState = EnemyStates.Aggro;
+        }
 
-        //switch (m_CurrentState)
-        //{
-        //    case EnemyStates.Idle:
-        //        ExecuteIdle();
-        //        break;
-        //    case EnemyStates.Moving:
-        //        ExecuteMoving();
-        //        break;
-        //    case EnemyStates.Aggro:
-        //        ExecuteAggro();
-        //        break;
-        //}
+        switch (m_CurrentState)
+        {
+            case EnemyStates.Idle:
+                ExecuteIdle();
+                break;
+            case EnemyStates.Moving:
+                ExecuteMoving();
+                break;
+            case EnemyStates.Aggro:
+                ExecuteAggro();
+                break;
+        }
     }
 
     private void ExecuteIdle()

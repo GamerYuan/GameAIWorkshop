@@ -2107,6 +2107,8 @@ GameObject:
   - component: {fileID: 618563186}
   - component: {fileID: 618563185}
   - component: {fileID: 618563189}
+  - component: {fileID: 618563192}
+  - component: {fileID: 618563191}
   - component: {fileID: 618563190}
   m_Layer: 0
   m_Name: Enemy
@@ -2216,7 +2218,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 1
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 360
@@ -2237,46 +2239,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 618563182}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 32254cb4d7ee8a541bcb47153f4da123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Graph: {fileID: -66754772912556531, guid: c6fbda97f839123459eccc93255e3a93, type: 2}
-  m_BlackboardVariableOverridesList:
-  - rid: 8335419005073096736
-  - rid: 8335419005073097104
-  - rid: 8335419005073097321
-  m_IsInitialised: 0
-  m_IsStarted: 0
-  references:
-    version: 2
-    RefIds:
-    - rid: 8335419005073096736
-      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 1
-          m_Value1: 0
-        Name: Self
-        m_Value: {fileID: 618563182}
-    - rid: 8335419005073097104
-      type: {class: 'BlackboardVariable`1[[System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]], mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 12757623745753941802
-          m_Value1: 11076123059506695430
-        Name: Waypoints
-        m_Value:
-        - {fileID: 731087930}
-        - {fileID: 505661830}
-        - {fileID: 1811563535}
-    - rid: 8335419005073097321
-      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 14803155405543195224
-          m_Value1: 15016673745474413499
-        Name: Player
-        m_Value: {fileID: 551332700}
+--- !u!114 &618563191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618563182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ddb65114420ea9458489400598fbacb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Player: {fileID: 551332700}
+  m_AggroRange: 10
+--- !u!114 &618563192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618563182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 200e2360ac40fab4ea71348c0270827f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &642551414
 GameObject:
   m_ObjectHideFlags: 0
