@@ -2,60 +2,63 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class EnemyIdle : IState
+namespace Gameplay.Enemy
 {
-    private EnemyStateController m_StateController;
-    private EnemyController m_Enemy;
-
-    private bool m_CanMove;
-
-    private CancellationTokenSource m_MoveCountdownTokenSource;
-
-    public EnemyIdle(EnemyStateController stateController, EnemyController enemy, bool canMove)
+    public class EnemyIdle : IState
     {
-        m_Enemy = enemy;
-        m_StateController = stateController;
-        m_CanMove = canMove;
+        private EnemyStateController m_StateController;
+        private EnemyController m_Enemy;
 
-        m_MoveCountdownTokenSource = new CancellationTokenSource();
-    }
+        private bool m_CanMove;
 
-    public void Enter()
-    {
-        Debug.Log("Entering idle state");
-        Task.Run(() => WaitAndMove(m_MoveCountdownTokenSource.Token));
-    }
+        private CancellationTokenSource m_MoveCountdownTokenSource;
 
-    public void Execute()
-    {
-        if (m_Enemy.IsPlayerInRange())
+        public EnemyIdle(EnemyStateController stateController, EnemyController enemy, bool canMove)
         {
-            m_StateController.TransitionToState(new EnemyAggro(m_StateController, m_Enemy));
-            return;
+            m_Enemy = enemy;
+            m_StateController = stateController;
+            m_CanMove = canMove;
+
+            m_MoveCountdownTokenSource = new CancellationTokenSource();
         }
 
-        if (m_CanMove)
+        public void Enter()
         {
-            m_StateController.TransitionToState(new EnemyMoving(m_StateController, m_Enemy));
-            return;
+            Debug.Log("Entering idle state");
+            Task.Run(() => WaitAndMove(m_MoveCountdownTokenSource.Token));
         }
-    }
 
-    public void Exit()
-    {
-        m_MoveCountdownTokenSource.Cancel();
-    }
-
-    private async void WaitAndMove(CancellationToken token)
-    {
-        try
+        public void Execute()
         {
-            await Task.Delay(2000, token);
-            m_CanMove = true;
+            if (m_Enemy.IsPlayerInRange())
+            {
+                m_StateController.TransitionToState(new EnemyAggro(m_StateController, m_Enemy));
+                return;
+            }
+
+            if (m_CanMove)
+            {
+                m_StateController.TransitionToState(new EnemyMoving(m_StateController, m_Enemy));
+                return;
+            }
         }
-        catch
+
+        public void Exit()
         {
-            // Do nothing
+            m_MoveCountdownTokenSource.Cancel();
+        }
+
+        private async void WaitAndMove(CancellationToken token)
+        {
+            try
+            {
+                await Task.Delay(2000, token);
+                m_CanMove = true;
+            }
+            catch
+            {
+                // Do nothing
+            }
         }
     }
 }

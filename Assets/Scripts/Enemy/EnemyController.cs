@@ -1,41 +1,44 @@
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+namespace Gameplay.Enemy
 {
-    [SerializeField] private GameObject m_Player;
-    [SerializeField] private float m_AggroRange;
-
-    private EnemyMovement m_EnemyMovement;
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class EnemyController : MonoBehaviour
     {
-        m_EnemyMovement = GetComponent<EnemyMovement>();
-    }
+        [SerializeField] private GameObject m_Player;
+        [SerializeField] private float m_AggroRange;
 
-    public void MoveTo(Vector3 position)
-    {
-        m_EnemyMovement.MoveTo(position);
-    }
+        private EnemyMovement m_EnemyMovement;
 
-    public void MoveToPlayer()
-    {
-        m_EnemyMovement.MoveTo(m_Player.transform.position);
-    }
 
-    public void StopNavigation()
-    {
-        m_EnemyMovement.StopNavigation();
-    }
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
+        {
+            m_EnemyMovement = GetComponent<EnemyMovement>();
+        }
 
-    public bool HasReachedDestination()
-    {
-        return m_EnemyMovement.HasReachedDestination();
-    }
+        public void MoveTo(Vector3 position)
+        {
+            m_EnemyMovement.MoveTo(position);
+        }
 
-    public bool IsPlayerInRange()
-    {
-        return Vector3.Distance(transform.position, m_Player.transform.position) < m_AggroRange;
+        public void MoveToPlayer()
+        {
+            m_EnemyMovement.MoveTo(m_Player.transform.position);
+        }
+
+        public void StopNavigation()
+        {
+            m_EnemyMovement.StopNavigation();
+        }
+
+        public bool HasReachedDestination()
+        {
+            return m_EnemyMovement.HasReachedDestination();
+        }
+
+        public bool IsPlayerInRange()
+        {
+            return Vector3.Distance(transform.position, m_Player.transform.position) < m_AggroRange;
+        }
     }
 }

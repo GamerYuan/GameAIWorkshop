@@ -1,26 +1,29 @@
 using UnityEngine;
 
-public class EnemyStateController : MonoBehaviour
+namespace Gameplay.Enemy
 {
-    public IState CurrentState { get; private set; }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class EnemyStateController : MonoBehaviour
     {
-        CurrentState = new EnemyIdle(this, GetComponent<EnemyController>(), true);
-    }
+        public IState CurrentState { get; private set; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        CurrentState?.Execute();
-    }
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
+        {
+            CurrentState = new EnemyIdle(this, GetComponent<EnemyController>(), true);
+        }
 
-    public void TransitionToState(IState state)
-    {
-        Debug.Log("Transitioning to state: " + state.GetType().Name);
-        CurrentState?.Exit();
-        CurrentState = state;
-        CurrentState.Enter();
+        // Update is called once per frame
+        void Update()
+        {
+            CurrentState?.Execute();
+        }
+
+        public void TransitionToState(IState state)
+        {
+            Debug.Log("Transitioning to state: " + state.GetType().Name);
+            CurrentState?.Exit();
+            CurrentState = state;
+            CurrentState.Enter();
+        }
     }
 }

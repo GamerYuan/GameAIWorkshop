@@ -1,28 +1,31 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMovement : MonoBehaviour
+namespace Gameplay.Enemy
 {
-    private NavMeshAgent m_NavMeshAgent;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class EnemyMovement : MonoBehaviour
     {
-        m_NavMeshAgent = GetComponent<NavMeshAgent>();
-    }
+        private NavMeshAgent m_NavMeshAgent;
 
-    public void MoveTo(Vector3 position)
-    {
-        m_NavMeshAgent.SetDestination(position);
-    }
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
+        {
+            m_NavMeshAgent = GetComponent<NavMeshAgent>();
+        }
 
-    public void StopNavigation()
-    {
-        m_NavMeshAgent.ResetPath();
-    }
+        public void MoveTo(Vector3 position)
+        {
+            m_NavMeshAgent.SetDestination(position);
+        }
 
-    public bool HasReachedDestination()
-    {
-        return !m_NavMeshAgent.pathPending && m_NavMeshAgent.remainingDistance <= m_NavMeshAgent.stoppingDistance;
+        public void StopNavigation()
+        {
+            m_NavMeshAgent.ResetPath();
+        }
+
+        public bool HasReachedDestination()
+        {
+            return !m_NavMeshAgent.pathPending && m_NavMeshAgent.remainingDistance <= m_NavMeshAgent.stoppingDistance;
+        }
     }
 }
